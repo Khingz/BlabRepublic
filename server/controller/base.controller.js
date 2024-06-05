@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const CustomError = require('../middleware/error/customError')
 const User = require('../models/user.model');
+const { cloudinaryRemoveImage } = require('../utils/cloudinary');
 
 class BaseController {
     constructor(model) {
@@ -11,7 +12,7 @@ class BaseController {
         try {
           let query = {};
           let page = parseInt(req.query.page) || 1; //current page
-          let limit = parseInt(req.query.limit) || 1; // number of item per page
+          let limit = parseInt(req.query.limit) || 20; // number of item per page
           let skip = (page - 1) * limit; // number of items to skip for current page
           if (req.query) {
             query = { ...req.query };
@@ -22,6 +23,7 @@ class BaseController {
             delete query.page;
             delete query.limit;
           }
+          console.log(query);
           const totalDocuments = await this.model.countDocuments(query); // Count total number of document based on query
           const data = await this.model.find(query).sort({ createdAt: -1 }).skip(skip).limit(limit);
           const totalPages = Math.ceil(totalDocuments / limit); // total page for each query
@@ -116,6 +118,14 @@ class BaseController {
           }
           if (user.role != 'admin' && user.id != itemToDelete._id) {
             throw new CustomError(`You are not authorized to delete this ${this.model}`, 403);
+          }
+          const {img} = itemToDelete;
+          if (img) {
+            const imgCloudinaryId = img?.split('/')[7]?.split('.')[0];
+            if (imgCloudinaryId) {
+              await cloudinaryRemoveImage(imgCloudinaryId);
+              console.log('Img deleted from cloudinary');
+            }
           }
           const data = await this.model.findByIdAndDelete(id);
           res.status(200).json({ message: `${this.model.modelName} deleted successfully` });

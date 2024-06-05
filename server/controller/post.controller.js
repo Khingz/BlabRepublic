@@ -2,6 +2,8 @@ const BaseController = require('./base.controller');
 const Post = require('../models/post.model');
 const User = require('../models/user.model');
 const CustomError = require('../middleware/error/customError');
+const { cloudinaryUploadImage } = require('../utils/cloudinary');
+const { deleteFile } = require('../utils/deleteFile');
 
 class PostController extends BaseController {
     constructor() {
@@ -20,7 +22,9 @@ class PostController extends BaseController {
         const postData = {...req.body}
         postData.author = req.id;
         if (req.file) {
-          postData.img = req.file.path;
+          const imgData = await cloudinaryUploadImage(req.file.path)
+          postData.img = imgData.secure_url;
+          await deleteFile(req.file.path)
         }
         const post = await this.model.create(postData);
         res.status(201).json({message: 'Post created successfully', post});

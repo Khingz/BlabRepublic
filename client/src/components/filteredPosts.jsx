@@ -3,7 +3,6 @@ import { useLocation } from 'react-router-dom';
 import { usePost } from '../context/postContext';
 import Spinner from './spinner';
 import Card from './card';
-import { useCustomNav } from '../context/navigationContext';
 
 const FilteredPosts = () => {
     const location = useLocation()
@@ -12,14 +11,14 @@ const FilteredPosts = () => {
 
     const postArr = posts.data
 
-    const queryParamObj = {};
+    let queryParamObj = {};
     for (const [key, value] of queryParams.entries()) {
         queryParamObj[key] = value
     }
-
+    
     useEffect(() => {
         fetchData(queryParamObj)
-    }, [fetchData])
+    }, [])
 
     return (
         <div className='mt-16 md:mt-32'>
@@ -27,7 +26,7 @@ const FilteredPosts = () => {
                 <h3 className='text-3xl font-light'>{queryParamObj && queryParamObj.search ? `Search Result for: ${queryParamObj.search}` : `Category: ${queryParamObj.category}`}</h3>
             </div>
             <div className='border-t border-gray-200 w-full mt-6'></div>
-            {postArr < 1 && (<h1 className='w-full mt-32 text-4xl font-semibold text-center'>
+            {!isLoading && postArr < 1 && (<h1 className='w-full mt-32 text-4xl font-light text-center'>
                 {`${queryParamObj && queryParamObj.search ? `No search result for ${queryParamObj.search}` : `No post for category ${queryParamObj.category} yet`}`}
             </h1>)}
             {posts.data && (<div className="">

@@ -24,9 +24,9 @@ const SinglePost = () => {
     const navigate = useNavigate();
     const [comments, setComments] = useState([]);
 
-    const img = post && `http://localhost:5000/${post.img}`
+    const img = post && post.img
 
-    const handleContinue = async (id) => {
+    const handleDelete = async (id) => {
         try {
             await deletePostItem(id);
             toast.success('Post deleted successfully')
@@ -56,12 +56,16 @@ const SinglePost = () => {
     }, [id]);
 
     if (isLoading) {
-        return <Spinner />
+        return (
+            <div className='mt-72'>
+                <Spinner />
+            </div>
+        )
     }
 
     return (       
         <div className='mt-16 md:mt-32'>
-            {isConfirmOpen && <Confirm handleContinue={() => handleContinue(post._id)} title={'Are you sure you want to delete post?'}/>}
+            {isConfirmOpen && <Confirm handleDelete={() => handleDelete(post._id)} title={'Are you sure you want to delete post?'}/>}
             {isLoading ? (<div className='pt-8'>
                 <Spinner />
             </div>) : post && (

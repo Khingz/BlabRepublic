@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const CustomError = require('../middleware/error/customError');
 const { formatUser } = require('../utils/user.utils');
 const BlockedTokensModel = require('../models/blockedTokens.model');
+const { deleteFile } = require('../utils/deleteFile');
 jwt = require('jsonwebtoken');
 
 
@@ -47,7 +48,9 @@ class UserController extends BaseController {
         email
       }
       if (req.file) {
-        new_user_data.img = req.file.path;
+        const imgData = await cloudinaryUploadImage(req.file.path)
+        postData.img = imgData.secure_url;
+        await deleteFile(req.file.path)
       }
       const new_user = await this.model.create(new_user_data);
       const user_data = formatUser(new_user)

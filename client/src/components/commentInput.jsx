@@ -21,7 +21,7 @@ const CommentInputForm = ({postID, setComments, comments}) => {
     <div>
         <form onSubmit={handleSubmit}>
             <input type="text" value={content} placeholder='Add comment' className='border md:p-4 p-2 w-3/6 rounded-md focus:outline-none' onChange={(e) => setContent(e.target.value)} />
-            <input type="submit" value="Submit" className='w-24 md:p-4 p-2 ml-2 px-4 bg-blue-400 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-900 text-center text-white rounded-lg cursor-pointer'/>
+            <input type="submit" value="Submit" className='w-24 md:p-4 p-2 ml-2 px-4 bg-transparent border border-gray-700 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white text-center text-black hover:text-white rounded-lg cursor-pointer'/>
         </form>
     </div>
   )

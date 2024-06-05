@@ -10,6 +10,7 @@ const Home = () => {
   const { posts, fetchData, isLoading } = usePost();
   const postArr = posts.data
 
+
   const handlePageChange = (pageNumber) => {
     try {
       fetchData({page: pageNumber})
@@ -21,6 +22,7 @@ const Home = () => {
   useEffect(() => {
     fetchData()
   }, [])
+
   return (
     <div className='w-full'>
       <HeroSection />
@@ -28,7 +30,7 @@ const Home = () => {
       {/* Upper card section */}
 
       {/* Lower card section  */}
-      {postArr < 1 && (<h1 className='w-full mt-32 text-4xl font-semibold text-center'>No Post at the moment</h1>)}
+      {!isLoading && postArr < 1 && (<h1 className='w-full mt-32 text-4xl font-semibold text-center'>No Post at the moment</h1>)}
       {posts.data && (<div className="">
         {isLoading ? (<div className='w-full flex items-center justify-center mt-16'>
           <Spinner />
