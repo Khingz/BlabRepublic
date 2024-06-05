@@ -10,7 +10,7 @@ const NavLinksSm = () => {
   const { isLoggedIn, user, logout } = useAuth()
   const navigate = useNavigate();
 
-  const avatar = user && `http://localhost:5000/${user.img}`
+  const avatar = user && `${process.env.REACT_APP_API_BASE_URL}/${user.img}`
 
   const iconIndex = [
     <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' strokeWidth='1.5' stroke='currentColor' className='w-6 h-6'>
@@ -33,7 +33,7 @@ const NavLinksSm = () => {
   return (
     // Is Open Icon for small screens
     <div className='fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-70 z-50'>
-      <div className='w-full items-center mt-10 border-t-2 border-t-black-100 absolute left-0 p-3 bg-deepPurple text-white z-60 h-full pt-6'>
+      <div className='w-full items-center mt-10 border-t-2 border-t-black-100 absolute left-0 p-3 bg-gray-700 text-white z-60 h-full pt-6'>
           <div className='flex items-center justify-between mb-5'>
             {user && (<Link className='flex items-center mr-8' to={'/profile'} onClick={() => setIsOpen(false)}>
                 <img src={avatar} alt="alt" className='w-10 h-10 rounded-lg'/>
@@ -61,7 +61,7 @@ const NavLinksSm = () => {
         </div>
 
         {/* Bottom Navigation  */}
-        <div className='w-full h-10 bg-deepPurple text-white md:flex md:items-center md:px-6'>
+        <div className='w-full h-10 bg-gray-700 text-white md:flex md:items-center md:px-6'>
             {
                 isLoggedIn ? (
                     <div className='w-full'>

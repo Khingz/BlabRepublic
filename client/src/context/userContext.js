@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
           setUser(data.data.user.user);
           saveTokenToLocalStorage(data.data.user.token);
         } catch (err) {
-          throw new Error(err.message)
+          throw err;
         } finally {
           setIsLoading(false);
         }

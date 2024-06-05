@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { fetchSinglePost, likePostItem, unLikePostItem } from '../services/post.api'
-import { useAuth } from '../context/userContext'
 import { fetchSingleComment, likeCommentItem, unLikeCommentItem } from '../services/comments.api'
 
 const LikedCommentBtn = ({ userID, commentID, likes }) => {

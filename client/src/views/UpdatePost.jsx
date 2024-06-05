@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { fetchSinglePost, updatePostItem } from '../services/post.api';
 import Spinner from '../components/spinner';
+import SpinnerSmall from '../components/spinnerSmall';
 
 const UpdatePost = () => {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ const UpdatePost = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [ isLoading, setIsLoading ] = useState(true);
   const { id } = useParams();
+  const [submitSpinner, setSubmitSpinner] = useState(false)
 
   const categories = [
     { name: 'Health' },
@@ -23,16 +25,19 @@ const UpdatePost = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setSubmitSpinner(true)
       const formData = {
         title,
         content,
         category: selectedCategory
       }
       await updatePostItem(formData, id);
+      setSubmitSpinner(false)
       navigate(`/posts/${id}`);
       toast.success('Post updated successfully')
     } catch(err) {
       toast.error(err.message)
+      setSubmitSpinner(false)
     }
   }
 
@@ -54,12 +59,12 @@ const UpdatePost = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-deepPurple pt-16 pb-8">
+    <div className="min-h-screen flex items-center justify-center bg-gray-700 pt-16 pb-8">
       { isLoading ? (<div className='pt-8'>
                 <Spinner />
             </div>) : (
       <div className="bg-lightPurple rounded-lg shadow-md px-8 py-12 w-full md:w-1/2 mt-24">
-        <h2 className="text-2xl font-bold text-center text-lemonGreen mb-6">Update Post</h2>
+        <h2 className="text-3xl font-bold text-center text-gray-700 mb-6">Update Post</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label htmlFor="title" className="block text-sm font-medium text-gray-700">
@@ -80,7 +85,7 @@ const UpdatePost = () => {
                 </label>
                 <textarea
                     name="message"
-                    className="bg-white focus:outline-none focus:ring-lemonGreen focus:border-lemonGreen w-full rounded-lg border border-gray-300 resize-none h-64  p-3"
+                    className="bg-white focus:outline-none focus:ring-gray-700 focus:border-gray-700 w-full rounded-lg border border-gray-300 resize-none h-64  p-3"
                     onChange={(e) => setContent(e.target.value)}
                     value={content}
                 />
@@ -94,7 +99,7 @@ const UpdatePost = () => {
             name="category"
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="mt-1 block w-full p-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-lemonGreen focus:border-lemonGreen sm:text-sm"
+            className="mt-1 block w-full p-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-gray-700 focus:border-gray-700 sm:text-sm"
             >
             <option value="">Select...</option>
             {categories.map((category) => (
@@ -106,9 +111,10 @@ const UpdatePost = () => {
           </div>
           <button
             type="submit"
-            className="w-full py-2 px-4 bg-lemonGreen hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lemonGreen text-center text-white rounded-lg"
+            className="w-full py-2 px-4 border border-gray-900 text-gray-900 hover:bg-gray-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-700 text-center rounded-lg flex justify-center items-center gap-2"
           >
-            Update
+            <span className={`${submitSpinner ? 'block' : 'hidden'}`}>{<SpinnerSmall />}</span>
+            <p>Update</p>
           </button>
         </form>
       </div>)

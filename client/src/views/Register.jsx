@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/userContext';
 import { toast } from 'react-toastify';
+import SpinnerSmall from '../components/spinnerSmall';
 
 const Register = () => {
   const { register, setError, error } = useAuth();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
@@ -17,6 +19,7 @@ const Register = () => {
   const handleSubmit = async(e) => {
     e.preventDefault();
     try {
+      setIsLoading(true);
       const formData = new FormData();
       formData.append('firstname', firstname);
       formData.append('lastname', lastname);
@@ -38,8 +41,10 @@ const Register = () => {
       setFirstname('');
       setLastname('');
       setPassword2('');
+      setIsLoading(false)
     } catch(err) {
-      toast.error(err.message)
+      toast.error(err.message);
+      setIsLoading(false)
     }
   };
 
@@ -48,9 +53,9 @@ const Register = () => {
   }, [setError])
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-deepPurple py-10 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gray-700 py-10 px-4">
       <div className="bg-lightPurple rounded-lg shadow-md px-8 py-10 w-full md:w-1/2 mt-32">
-        <h2 className="text-2xl font-bold text-center text-lemonGreen mb-6">Register</h2>
+        <h2 className="text-2xl font-bold text-center text-gray-900 mb-6">Register</h2>
         { error && <p>{error}</p>}
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 gap-4 mb-6">
@@ -62,7 +67,7 @@ const Register = () => {
               <input
                 type="text"
                 id="firstname"
-                className="bg-white focus:outline-none focus:ring-lemonGreen focus:border-lemonGreen w-full p-3 rounded-lg border border-gray-300"
+                className="bg-white focus:outline-none focus:ring-gray-700 focus:border-gray-700 w-full p-3 rounded-lg border border-gray-300"
                 value={firstname}
                 onChange={(e) => setFirstname(e.target.value)}
                 required
@@ -77,7 +82,7 @@ const Register = () => {
               <input
                 type="text"
                 id="lastname"
-                className="bg-white focus:outline-none focus:ring-lemonGreen focus:border-lemonGreen w-full p-3 rounded-lg border border-gray-300"
+                className="bg-white focus:outline-none focus:ring-gray-700 focus:border-gray-700 w-full p-3 rounded-lg border border-gray-300"
                 value={lastname}
                 onChange={(e) => setLastname(e.target.value)}
                 required
@@ -92,7 +97,7 @@ const Register = () => {
               <input
                 type="email"
                 id="email"
-                className="bg-white focus:outline-none focus:ring-lemonGreen focus:border-lemonGreen w-full p-3 rounded-lg border border-gray-300"
+                className="bg-white focus:outline-none focus:ring-gray-700 focus:border-gray-700 w-full p-3 rounded-lg border border-gray-300"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -107,7 +112,7 @@ const Register = () => {
               <input
                 type="text"
                 id="username"
-                className="bg-white focus:outline-none focus:ring-lemonGreen focus:border-lemonGreen w-full p-3 rounded-lg border border-gray-300"
+                className="bg-white focus:outline-none focus:ring-gray-700 focus:border-gray-700 w-full p-3 rounded-lg border border-gray-300"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
@@ -121,7 +126,7 @@ const Register = () => {
               <input
                 type="password"
                 id="password"
-                className="bg-white focus:outline-none focus:ring-lemonGreen focus:border-lemonGreen w-full p-3 rounded-lg border border-gray-300"
+                className="bg-white focus:outline-none focus:ring-gray-700 focus:border-gray-700 w-full p-3 rounded-lg border border-gray-300"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -136,7 +141,7 @@ const Register = () => {
               <input
                 type="password"
                 id="password2"
-                className="bg-white focus:outline-none focus:ring-lemonGreen focus:border-lemonGreen w-full p-3 rounded-lg border border-gray-300"
+                className="bg-white focus:outline-none focus:ring-gray-700 focus:border-gray-700 w-full p-3 rounded-lg border border-gray-300"
                 value={password2}
                 onChange={(e) => setPassword2(e.target.value)}
                 required
@@ -152,16 +157,17 @@ const Register = () => {
                 type="file"
                 name='img'
                 id="image"
-                className="bg-white focus:outline-none focus:ring-lemonGreen focus:border-lemonGreen w-full p-3 rounded-lg border border-gray-300"
+                className="bg-white focus:outline-none focus:ring-gray-700 focus:border-gray-700 w-full p-3 rounded-lg border border-gray-300"
                 onChange={(e) => setImageFile(e.target.files[0])}
               />
             </div>
           </div>
           <button
             type="submit"
-            className="w-full py-2 px-4 bg-lemonGreen hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lemonGreen text-center text-white rounded-lg"
+            className="w-full py-2 px-4 bg-none border border-gray-900 text-gray-900 hover:bg-gray-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray text-center rounded-lg flex justify-center items-center gap-2"
           >
-            Register
+            <span className={`${isLoading ? 'block' : 'hidden'}`}>{<SpinnerSmall />}</span>
+            <p>Register</p>
           </button>
         </form>
         <Link to='/login' className="text-sm text-gray-700 hover:underline">Already have an account? Login</Link>

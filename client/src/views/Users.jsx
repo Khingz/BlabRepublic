@@ -65,7 +65,7 @@ const Users = () => {
             <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
             </svg>
             <input type="search" value={searchUser} name="search" placeholder='Search user' className='text-gray-500 focus:outline-none mx-3 w-5/6 text-lg' onChange={(e) => setSearchUser(e.target.value)} />
-            <button className='bg-lemonGreen py-2 px-4 font-semibold rounded-sm' onClick={handleSearch}>Submit</button>
+            <button className='bg-transparent border border-black py-2 px-4 font-light text-xl rounded-sm' onClick={handleSearch}>SEARCH</button>
         </div>
 
       {/* User List section  */}

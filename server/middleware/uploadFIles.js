@@ -19,13 +19,7 @@ function fileFilter(req, img, cb) {
 
 const storage = multer.diskStorage({
     destination: function(req, res, cb) {
-        let destDir; // destination directory
-        if (req.route.path == '/register' || req.route.path === '/users/update/:id') {
-            destDir = 'uploads/users';
-        }
-        if (req.route.path == '/new' || req.route.path === '/posts/update/:id')  {
-            destDir = 'uploads/posts';
-        }
+        let destDir = 'uploads'
         cb(null, destDir);
     },
     filename: function (req, img, cb) {
