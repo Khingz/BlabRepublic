@@ -19,7 +19,7 @@ app.use(express.json());  //parse json bodies
 app.use(cookieParser()); // parses cookies
 app.use(express.urlencoded({extended: false}));   //parse forms
 app.use(cors({
-  origin:'http://localhost:3000', 
+  origin:'*', 
   credentials:true,            //access-control-allow-credentials:true
   optionSuccessStatus:200
 }));
