@@ -19,9 +19,9 @@ app.use(express.json());  //parse json bodies
 app.use(cookieParser()); // parses cookies
 app.use(express.urlencoded({extended: false}));   //parse forms
 app.use(cors({
-  origin:'blabrepublic.netlify.app', 
-  credentials:true,            //access-control-allow-credentials:true
-  optionSuccessStatus:200
+  origin:['https://blabrepublic.vercel.app'], 
+  methods: ['POST', 'GET', 'PUT', 'DELETE'],
+  credentials:true
 }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
