@@ -16,12 +16,13 @@ const DB_URL = process.env.DB_URL
 
 // middleware
 app.use(express.json());  //parse json bodies
-app.use(cookieParser()); // parses cookies
 app.use(express.urlencoded({extended: false}));   //parse forms
+app.use(cookieParser()); // parses cookies
 app.use(cors({
   origin: 'https://blabrepublic.vercel.app', 
   methods: ['POST', 'GET', 'PUT', 'DELETE'],
-  credentials:true
+  credentials:true,
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
