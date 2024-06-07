@@ -9,10 +9,10 @@
   
     "headers": [
       {
-        "source": "https://blabrepublic.vercel.app",
+        "source": "/(.*)",
         "headers": [
           { "key": "Access-Control-Allow-Credentials", "value": "true" },
-          { "key": "Access-Control-Allow-Origin", "value": "*" },
+          { "key": "Access-Control-Allow-Origin", "value": "https://blabrepublic.vercel.app" },
           {
             "key": "Access-Control-Allow-Methods",
             "value": "GET,OPTIONS,PATCH,DELETE,POST,PUT"
