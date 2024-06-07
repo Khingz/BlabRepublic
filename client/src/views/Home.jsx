@@ -8,7 +8,7 @@ import Spinner from '../components/spinner';
 
 const Home = () => {
   const { posts, fetchData, isLoading } = usePost();
-  const postArr = posts.data
+  const postArr = posts && posts.data
 
 
   const handlePageChange = (pageNumber) => {
@@ -31,7 +31,7 @@ const Home = () => {
 
       {/* Lower card section  */}
       {!isLoading && postArr < 1 && (<h1 className='w-full mt-32 text-4xl font-semibold text-center'>No Post at the moment</h1>)}
-      {posts.data && (<div className="">
+      {postArr && (<div className="">
         {isLoading ? (<div className='w-full flex items-center justify-center mt-16'>
           <Spinner />
         </div>)
@@ -48,7 +48,7 @@ const Home = () => {
         }
       </div>)}
       {!isLoading && <div className='mb-6'>
-        <Pagination currentPage={posts.page} totalPages={posts.totalPages} onPageChange={handlePageChange}/>
+        <Pagination currentPage={posts && posts.page} totalPages={posts && posts.totalPages} onPageChange={handlePageChange}/>
       </div>}
 
     </div>
