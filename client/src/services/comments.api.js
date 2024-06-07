@@ -3,6 +3,8 @@ import { getTokenFromLocalStorage } from '../utility/userUtils';
 
 const API_BASE_URL = `${process.env.REACT_APP_API_BASE_URL}/api`;
 
+axios.defaults.withCredentials = true;
+
 export const fetchCommentsFromServer = async (postID) => {
     try {
         const response = await axios.get(`${API_BASE_URL}/comments/${postID}/comments`);
