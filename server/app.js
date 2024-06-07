@@ -20,10 +20,11 @@ app.use(express.urlencoded({extended: false}));   //parse forms
 app.use(cookieParser()); // parses cookies
 app.use(cors({
   origin: 'https://blabrepublic.vercel.app', 
-  methods: ['POST', 'GET', 'PUT', 'DELETE'],
+  methods: ['POST', 'GET', 'PUT', 'DELETE', 'OPTIONS'],
   credentials:true,
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
+app.options('*', cors());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
