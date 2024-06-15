@@ -5,8 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "node app.js",
-    "dev": "nodemon app.js"
+    "serve": "node index.js",
+    "dev": "nodemon index.js"
   },
   "author": "khingz",
   "license": "ISC",

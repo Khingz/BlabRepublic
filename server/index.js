@@ -19,7 +19,7 @@ app.use(express.json());  //parse json bodies
 app.use(express.urlencoded({extended: false}));   //parse forms
 app.use(cookieParser()); // parses cookies
 app.use(cors({
-  origin: 'https://blabrepublic.vercel.app', 
+  origin: 'http://localhost:3000', 
   methods: ['POST', 'GET', 'PUT', 'DELETE', 'OPTIONS'],
   credentials:true,
   allowedHeaders: ['Content-Type', 'Authorization']
