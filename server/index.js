@@ -8,18 +8,21 @@ const errorHandler = require('./middleware/error/errorHandler');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const path = require('path');
+const { checkOrigin } = require('./utils/checkOrigin');
 
 const app = express();
 
 const PORT = process.env.PORT || 4000;
 const DB_URL = process.env.DB_URL
 
+const allowedOrigins = ['http://localhost:3000', 'https://blabrepublic.vercel.app'];
+
 // middleware
 app.use(express.json());  //parse json bodies
 app.use(express.urlencoded({extended: false}));   //parse forms
 app.use(cookieParser()); // parses cookies
 app.use(cors({
-  origin: 'https://blabrepublic.vercel.app', 
+  origin: checkOrigin(allowedOrigins), 
   methods: ['POST', 'GET', 'PUT', 'DELETE', 'OPTIONS'],
   credentials:true,
   allowedHeaders: ['Content-Type', 'Authorization']
