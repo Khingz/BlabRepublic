@@ -20,8 +20,8 @@ export const PostProvider = ({ children }) => {
     };
 
     const addPost = async (credentials) => {
+      setIsLoading(true);
       try {
-        setIsLoading(true);
         const data = await newPost(credentials);
         if (data.error) {
           throw new Error(data.message);

@@ -20,10 +20,7 @@ const Home = () => {
   }
 
   useEffect(() => {
-    setIsLoading(true)
-
-    setTimeout(fetchData, 5000)
-    // fetchData()
+    fetchData()
   }, [])
 
   return (
