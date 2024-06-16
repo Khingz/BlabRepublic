@@ -64,12 +64,12 @@ const SingleUser = () => {
                 <h1 className='text-2xl md:text-4xl mb-4 mt-8 font-light text-gray-800'>Personal Info</h1>
               </div>
               <div className='border-2 border-black-400 p-4 capitalize'>
-                <p className='text-lg md:text-2xl font-light text-gray-700 mb-4'>Firstname: <span className='ml-4 font-semibold text-2xl md:text-4xl'>{user.firstname}</span></p>
-                <p className='text-lg  md:text-2xl font-light text-gray-700 mb-4'>Lastname: <span className='ml-4 font-semibold text-2xl md:text-4xl'>{user.lastname}</span></p>
-                <p className='text-lg  md:text-2xl font-light text-gray-700 mb-4'>Username: <span className='ml-4 font-semibold text-2xl md:text-4xl'>{user.username}</span></p>
-                <p className='text-lg  md:text-2xl font-light text-gray-700 mb-4'>Email: <span className='ml-4 font-semibold text-2xl md:text-4xl lowercase'>{user.email}</span></p>
-                <p className='text-lg  md:text-2xl font-light text-gray-700 mb-4'>Role: <span className='ml-4 font-semibold text-2xl md:text-4xl'>{user.role}</span></p>
-                <p className='text-lg  md:text-2xl font-light text-gray-700 mb-4'>Date joined: <span className='ml-4 font-semibold text-2xl md:text-4xl'>{formatDate(user.createdAt)}</span></p>
+                <p className='text-lg md:text-2xl font-light text-gray-700 mb-4'>Firstname: <span className='ml-2 font-semibold text-xl md:text-4xl'>{user.firstname}</span></p>
+                <p className='text-lg  md:text-2xl font-light text-gray-700 mb-4'>Lastname: <span className='ml-2 font-semibold text-xl md:text-4xl'>{user.lastname}</span></p>
+                <p className='text-lg  md:text-2xl font-light text-gray-700 mb-4'>Username: <span className='ml-2 font-semibold text-xl md:text-4xl'>{user.username}</span></p>
+                <p className='text-lg  md:text-2xl font-light text-gray-700 mb-4'>Email: <span className='ml-2 font-semibold text-xl md:text-4xl lowercase'>{user.email}</span></p>
+                <p className='text-lg  md:text-2xl font-light text-gray-700 mb-4'>Role: <span className='ml-2 font-semibold text-xl md:text-4xl'>{user.role}</span></p>
+                <p className='text-lg  md:text-2xl font-light text-gray-700 mb-4'>Date joined: <span className='ml-2 font-semibold text-xl md:text-4xl'>{formatDate(user.createdAt)}</span></p>
               </div>
             </div>
           </div>
@@ -83,9 +83,9 @@ const SingleUser = () => {
               <Spinner />
               </div>) : (
                 <>
-                  <h1 className='px-10 mt-10 text-4xl font-semibold text-gray-700'>Post from this User</h1>
+                  <h1 className='px-10 mt-10 text-2xl md:text-4xl font-semibold text-gray-700'>Post from this User</h1>
                   <div className='border-t border-grey-400 mt-4'></div>
-                  {user && (user.role === 'editor' || user.role === 'admin') && posts && posts.data < 1 && (<h1 className='w-full mt-32 text-4xl font-semibold text-center'>You don't have any post yet</h1>)}
+                  {user && (user.role === 'editor' || user.role === 'admin') && posts && posts.data < 1 && (<h1 className='w-full mt-10 text-2xl md:text-4xl font-light text-center'>You don't have any post yet</h1>)}
                   <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10 mb-10 px-10'>
                     {user && posts && postArr && postArr.map((card) => (
                       <Card key={card._id} image={card.img} title={card.title} content={card.content} category={card.category} date={card.createdAt} author={card.author} id={card._id} />

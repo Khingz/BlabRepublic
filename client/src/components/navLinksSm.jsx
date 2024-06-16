@@ -10,7 +10,7 @@ const NavLinksSm = () => {
   const { isLoggedIn, user, logout } = useAuth()
   const navigate = useNavigate();
 
-  const avatar = user && `${process.env.REACT_APP_API_BASE_URL}/${user.img}`
+  const avatar = user && user.img
 
   const iconIndex = [
     <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' strokeWidth='1.5' stroke='currentColor' className='w-6 h-6'>
