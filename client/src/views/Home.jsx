@@ -5,9 +5,11 @@ import Card from '../components/card';
 import { usePost } from '../context/postContext';
 import { Pagination } from '../components/pagination';
 import Spinner from '../components/spinner';
+import { useAuth } from '../context/userContext';
 
 const Home = () => {
-  const { posts, fetchData, isLoading, setIsLoading } = usePost();
+  const { posts, fetchData, isLoading } = usePost();
+  const {user} = useAuth()
   const postArr = posts && posts.data
 
 
@@ -22,6 +24,14 @@ const Home = () => {
   useEffect(() => {
     fetchData()
   }, [])
+
+  if (!posts || !user) {
+    return (
+      <div className='mt-48'>
+        <Spinner />
+      </div>
+    )
+  }
 
   return (
     <div className='w-full'>

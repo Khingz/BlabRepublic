@@ -9,7 +9,7 @@ import logo from '../utility/images/LogoBlabRepublic.jpg'
 
 export const NavBar = () => {
     const navigate = useNavigate();
-    const { isLoggedIn, user, logout } = useAuth();
+    const { isLoggedIn, user, logout, isLoading } = useAuth();
     const { handleToggle, isOpen, isNavMenu } = useCustomNav();
 
     const avatar = user && user.img
@@ -18,6 +18,12 @@ export const NavBar = () => {
         await logout();
         navigate('/login');
         toast.success('Logged out successfully');
+    }
+
+    if(isLoading) {
+        return (
+            <div></div>
+        )
     }
 
   return (

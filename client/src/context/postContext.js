@@ -9,7 +9,6 @@ export const PostProvider = ({ children }) => {
 
     const fetchData = async (query = {}) => {
         try {
-          console.log(query);
           setIsLoading(true)
           const data = await fetchPostsFromServer(query);
           setPosts(data.data);

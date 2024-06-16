@@ -156,7 +156,7 @@ const SinglePost = () => {
                     
                     {/* List of comment section  */}
                     <div className='px-4 mt-4'>
-                        <h2 className='md:text-3xl text-2xl underline font-light mb-4'>Comments</h2>
+                        <h2 className='text-xl md:text-3xl font-light mb-4'>Comments</h2>
                         {user && <CommentInputForm postID={post._id} setComments={setComments} comments={comments} />}
                         {post && <CommentSection postID={post._id} comments={comments} setComments={setComments}/>}
                     </div>

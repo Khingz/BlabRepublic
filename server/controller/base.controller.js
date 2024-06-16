@@ -23,7 +23,6 @@ class BaseController {
             delete query.page;
             delete query.limit;
           }
-          console.log(query);
           const totalDocuments = await this.model.countDocuments(query); // Count total number of document based on query
           const data = await this.model.find(query).sort({ createdAt: -1 }).skip(skip).limit(limit);
           const totalPages = Math.ceil(totalDocuments / limit); // total page for each query
