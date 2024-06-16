@@ -19,7 +19,7 @@ import ProtectedRoutes from "./utility/protectedRoutes";
 import NotFoundPage from "./views/NotFoundPage";
 
 function App() {
-  const {isLoggedIn} = useAuth()
+    const { isLoggedIn  } = useAuth();
 
   return (
     <div className="min-h-screen w-full" id="#app-root">

@@ -9,7 +9,7 @@ import { useAuth } from '../context/userContext';
 
 const Home = () => {
   const { posts, fetchData, isLoading } = usePost();
-  const {user} = useAuth()
+  const { isLoading: userLoading } = useAuth();
   const postArr = posts && posts.data
 
 
@@ -23,9 +23,10 @@ const Home = () => {
 
   useEffect(() => {
     fetchData()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  if (!posts || !user) {
+  if (isLoading || userLoading) {
     return (
       <div className='mt-48'>
         <Spinner />
