@@ -16,7 +16,7 @@ const SingleUser = () => {
   const [user, setUser] = useState({})
   const {fetchData, posts, isLoading} = usePost()
 
-  const avatar = user && `${process.env.REACT_APP_API_BASE_URL}/${user.img}`
+  const avatar = user && user.img
   const postArr = posts?.data
 
   const handlePageChange = (pageNumber) => {

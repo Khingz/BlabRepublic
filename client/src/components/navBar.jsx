@@ -21,18 +21,12 @@ export const NavBar = () => {
         toast.success('Logged out successfully');
     }
 
-    if(isLoading) {
-        return (
-            <div></div>
-        )
-    }
-
   return (
     <div className='fixed top-0 w-full z-20 border-b border-gray-700'>
         {/* Top nav */}
         <div className='hidden z-[1] w-full h-10 bg-gray-700 text-white md:flex items-center px-6'>
             {
-                isLoggedIn ? (
+                !isLoading && isLoggedIn ? (
                     <div className='flex items-center justify-between w-screen p-4'>
                         <div className='flex items-center justify-start gap-2'>
                             {(user.role === 'editor' || user.role === 'admin') && (
@@ -51,8 +45,7 @@ export const NavBar = () => {
                                 <img src={avatar} alt="alt" className='w-6 h-6 rounded-lg'/>
                                 <p className='mx-3 text-xl font-light'>{user.username.toUpperCase()}</p>
                             </Link>
-                            <button className='w-full bg-red-400 hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 text-center text-white rounded-sm px-4 py-1' onClick={handleLogout}>Logout</button>
-                            
+                            <button className='w-full bg-red-400 hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 text-center text-white rounded-sm px-4 py-1' onClick={handleLogout}>Logout</button>   
                         </div>
                     </div>
                 ) : (
