@@ -6,6 +6,7 @@ const CustomError = require('../middleware/error/customError');
 const { formatUser } = require('../utils/user.utils');
 const BlockedTokensModel = require('../models/blockedTokens.model');
 const { deleteFile } = require('../utils/deleteFile');
+const { cloudinaryUploadImage } = require('../utils/cloudinary');
 jwt = require('jsonwebtoken');
 
 
@@ -49,7 +50,7 @@ class UserController extends BaseController {
       }
       if (req.file) {
         const imgData = await cloudinaryUploadImage(req.file.path)
-        postData.img = imgData.secure_url;
+        new_user_data.img = imgData.secure_url;
         await deleteFile(req.file.path)
       }
       const new_user = await this.model.create(new_user_data);

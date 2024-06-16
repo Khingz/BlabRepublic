@@ -7,6 +7,7 @@ import NavLinksSm from './navLinksSm';
 import { toast } from 'react-toastify';
 import logo from '../utility/images/LogoBlabRepublic.jpg'
 
+
 export const NavBar = () => {
     const navigate = useNavigate();
     const { isLoggedIn, user, logout, isLoading } = useAuth();
