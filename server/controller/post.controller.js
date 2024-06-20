@@ -4,6 +4,7 @@ const User = require('../models/user.model');
 const CustomError = require('../middleware/error/customError');
 const { cloudinaryUploadImage } = require('../utils/cloudinary');
 const { deleteFile } = require('../utils/deleteFile');
+const { deleteKeysByPrefix } = require('../utils/redisHelper');
 
 class PostController extends BaseController {
     constructor() {
@@ -20,13 +21,14 @@ class PostController extends BaseController {
           throw new CustomError('No body passed', 400);
         }
         const postData = {...req.body}
-        postData.author = req.id;
+        postData.author = req.id;  
         if (req.file) {
           const imgData = await cloudinaryUploadImage(req.file.path)
           postData.img = imgData.secure_url;
           await deleteFile(req.file.path)
         }
         const post = await this.model.create(postData);
+        await deleteKeysByPrefix('Post')
         res.status(201).json({message: 'Post created successfully', post});
       } catch(err) {
         next(err);

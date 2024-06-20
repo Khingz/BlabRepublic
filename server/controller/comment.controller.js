@@ -3,6 +3,7 @@ const Comment = require('../models/comment.model');
 const Post = require('../models/post.model');
 const User = require('../models/user.model');
 const CustomError = require('../middleware/error/customError');
+const { deleteKeysByPrefix } = require('../utils/redisHelper');
 
 class CommentsController extends BaseController {
     constructor() {
@@ -31,6 +32,7 @@ class CommentsController extends BaseController {
             }
             post.comments.push(newComment._id)
             await post.save();
+            await deleteKeysByPrefix('Comment')
             res.status(200).json(newComment);
         } catch (error) {
           next(error);

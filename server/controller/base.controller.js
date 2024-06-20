@@ -1,7 +1,9 @@
-const mongoose = require('mongoose');
 const CustomError = require('../middleware/error/customError')
 const User = require('../models/user.model');
 const { cloudinaryRemoveImage } = require('../utils/cloudinary');
+const client = require('../utils/redisClient');
+const { handleCaching, deleteKeysByPrefix } = require('../utils/redisHelper');
+
 
 class BaseController {
     constructor(model) {
@@ -14,27 +16,32 @@ class BaseController {
           let page = parseInt(req.query.page) || 1; //current page
           let limit = parseInt(req.query.limit) || 20; // number of item per page
           let skip = (page - 1) * limit; // number of items to skip for current page
-          if (req.query) {
-            query = { ...req.query };
-            if (query.search) {
-              query.$text = { $search: query.search };
-              delete query.search;
+          const cacheKey = `${this.model.modelName}:${JSON.stringify(req.query)}`
+          const cacheData = await handleCaching(cacheKey, async () => {
+            console.log('running2');
+            if (req.query) {
+              let query = { ...req.query };
+              if (query.search) {
+                query.$text = { $search: query.search };
+                delete query.search;
+              }
+              delete query.page;
+              delete query.limit;
             }
-            delete query.page;
-            delete query.limit;
-          }
-          const totalDocuments = await this.model.countDocuments(query); // Count total number of document based on query
-          const data = await this.model.find(query).sort({ createdAt: -1 }).skip(skip).limit(limit);
-          const totalPages = Math.ceil(totalDocuments / limit); // total page for each query
-          const hasNextPage = page < totalPages; // determine if there is a next page
-          res.json({
-            page,
-            limit,
-            total: data.length, // Total items in the current page
-            totalPages,
-            hasNextPage,
-            data
-          });
+            const totalDocuments = await this.model.countDocuments(query); // Count total number of document based on query
+            const data = await this.model.find(query).sort({ createdAt: -1 }).skip(skip).limit(limit);
+            const totalPages = Math.ceil(totalDocuments / limit); // total page for each query
+            const hasNextPage = page < totalPages; // determine if there is a next page
+            return {
+              page,
+              limit,
+              total: data.length, // Total items in the current page
+              totalPages,
+              hasNextPage,
+              data
+            };
+          })
+          res.json(cacheData)
         } catch (error) {
           next(error);
         }
@@ -43,8 +50,12 @@ class BaseController {
     getWithId = async (req, res, next) => {
         try {
           const { id } = req.params;
-          const data = await this.model.findById(id);
-          res.status(200).json(data);
+          const cacheKey = `single:${this.model.modelName}:${JSON.stringify(id)}`
+          const cacheData = await handleCaching(cacheKey, async () => {
+            const data = await this.model.findById(id);
+            return data;
+          })
+          res.status(200).json(cacheData);
         } catch (error) {
           next(error);
         }
@@ -57,6 +68,7 @@ class BaseController {
           }
           req.body.author = req.id;
           const data = await this.model.create(req.body);
+          await deleteKeysByPrefix(this.model.modelName)
           res.status(200).json(data);
         } catch (error) {
           next(error);
@@ -91,6 +103,7 @@ class BaseController {
             delete req.body.password;
           }
           const data = await this.model.findByIdAndUpdate(id, req.body, { new: true });
+          await deleteKeysByPrefix(`single:${this.model.modelName}`)
           res.status(200).json({message: `${this.model.modelName} updated successfully`, data});
         } catch (error) {
           next(error);
@@ -127,6 +140,7 @@ class BaseController {
             }
           }
           const data = await this.model.findByIdAndDelete(id);
+          await deleteKeysByPrefix(`single:${this.model.modelName}`)
           res.status(200).json({ message: `${this.model.modelName} deleted successfully` });
         } catch (error) {
           next(error);
