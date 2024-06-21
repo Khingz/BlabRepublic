@@ -5,10 +5,9 @@ const DEFAULT_EXPIRATION = 3600;
 const handleCaching = async (key, cb) => {
     try {
         const data = await redisClient.get(key);
-        if (data) {
+        if (data !== null) {
             return JSON.parse(data);
         }
-
         const newCache = await cb();
         await redisClient.setEx(key, DEFAULT_EXPIRATION, JSON.stringify(newCache));
         return newCache;

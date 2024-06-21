@@ -42,14 +42,18 @@ class CommentsController extends BaseController {
     getComments = async (req, res, next) => {
         try {
             const {postID} = req.params;
-            if (!postID) {
-                throw new CustomError('No id passed in', 400);
-            }
-            const comments = await Comment.find({post: postID}).sort({ createdAt: -1 }).populate('author').populate('likedBy');
-            if (!comments) {
-                throw new CustomError(`Post not found`, 403);
-            }
-            res.status(200).json(comments);
+            const cacheKey = `${this.model.modelName}:${JSON.stringify(req.params)}`
+            const cacheData = await handleCaching(cacheKey, async () => {
+              if (!postID) {
+                  throw new CustomError('No id passed in', 400);
+              }
+              const comments = await Comment.find({post: postID}).sort({ createdAt: -1 }).populate('author').populate('likedBy');
+              if (!comments) {
+                  throw new CustomError(`Post not found`, 403);
+              }
+              return comments;
+            })
+            res.status(200).json(cacheData);
           } catch (err) {
             console.error(err);
             next(err);
