@@ -9,7 +9,7 @@ const FilteredPosts = () => {
     const queryParams = new URLSearchParams(location.search)
     const { posts, fetchData, isLoading} = usePost();
 
-    const postArr = posts.data
+    const postArr = posts && posts.data;
 
     const queryParamObj = useMemo(() => {
         let obj = {};
