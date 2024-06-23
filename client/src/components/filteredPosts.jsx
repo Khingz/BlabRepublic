@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { useLocation } from 'react-router-dom';
 import { usePost } from '../context/postContext';
 import Spinner from './spinner';
@@ -11,14 +11,19 @@ const FilteredPosts = () => {
 
     const postArr = posts.data
 
-    let queryParamObj = {};
-    for (const [key, value] of queryParams.entries()) {
-        queryParamObj[key] = value
-    }
+    const queryParamObj = useMemo(() => {
+        let obj = {};
+        for (const [key, value] of queryParams.entries()) {
+          obj[key] = value;
+        }
+        return obj;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [location.search])
     
     useEffect(() => {
         fetchData(queryParamObj)
-    }, [])
+        // eslint-disable-next-line
+    }, [queryParamObj])
 
     return (
         <div className='mt-16 md:mt-32'>

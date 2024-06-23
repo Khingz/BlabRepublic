@@ -19,14 +19,31 @@ class BaseController {
           const cacheKey = `${this.model.modelName}:${JSON.stringify(req.query)}`
           const cacheData = await handleCaching(cacheKey, async () => {
             if (req.query) {
-              let query = { ...req.query };
+              query = req.query;
               if (query.search) {
-                query.$text = { $search: query.search };
+                // query.$text = { $search: query.search }; 
+                let textSearchQuery = { $text: { $search: query.search } };
+                if (this.model.modelName === 'Post') {
+                  let regexSearchQuery = {
+                    $or: [
+                      { title: { $regex: query.search, $options: 'i' } },
+                      { content: { $regex: query.search, $options: 'i' } },
+                    ],
+                  };
+                  query = {
+                    ...query,
+                    $or: [
+                      textSearchQuery,
+                      regexSearchQuery
+                    ]
+                  }
+                }
                 delete query.search;
               }
               delete query.page;
               delete query.limit;
             }
+
             const totalDocuments = await this.model.countDocuments(query); // Count total number of document based on query
             const data = await this.model.find(query).sort({ createdAt: -1 }).skip(skip).limit(limit);
             const totalPages = Math.ceil(totalDocuments / limit); // total page for each query
@@ -141,7 +158,7 @@ class BaseController {
           const data = await this.model.findByIdAndDelete(id);
           if (this.model.modelName === 'Post') {
             await Comment.deleteMany({ post: data._id })
-            await deleteKeysByPrefix('Comment')
+            await deleteKeysByPrefix('Comment');
           }
           await deleteKeysByPrefix(this.model.modelName)
           await deleteKeysByPrefix(`single:${this.model.modelName}`)
