@@ -1,7 +1,7 @@
 const CustomError = require('../middleware/error/customError')
 const User = require('../models/user.model');
+const Comment = require('../models/comment.model');
 const { cloudinaryRemoveImage } = require('../utils/cloudinary');
-const client = require('../utils/redisClient');
 const { handleCaching, deleteKeysByPrefix } = require('../utils/redisHelper');
 
 
@@ -139,6 +139,11 @@ class BaseController {
             }
           }
           const data = await this.model.findByIdAndDelete(id);
+          if (this.model.modelName === 'Post') {
+            await Comment.deleteMany({ post: data._id })
+            await deleteKeysByPrefix('Comment')
+          }
+          await deleteKeysByPrefix(this.model.modelName)
           await deleteKeysByPrefix(`single:${this.model.modelName}`)
           res.status(200).json({ message: `${this.model.modelName} deleted successfully` });
         } catch (error) {
