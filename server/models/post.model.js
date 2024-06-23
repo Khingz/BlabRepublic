@@ -47,5 +47,9 @@ const postSchema = new mongoose.Schema({
 // Create a text index on the title and content fields
 postSchema.index({ title: 'text', content: 'text' });
 
+postSchema.index({ category: 1 });
+postSchema.index({ title: 1 });
+postSchema.index({ content: 1 });
+
 
 module.exports = mongoose.model('Post', postSchema);
