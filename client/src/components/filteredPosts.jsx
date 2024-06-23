@@ -34,7 +34,7 @@ const FilteredPosts = () => {
             {!isLoading && postArr < 1 && (<h1 className='w-full mt-32 text-4xl font-light text-center'>
                 {`${queryParamObj && queryParamObj.search ? `No search result for ${queryParamObj.search}` : `No post for category ${queryParamObj.category} yet`}`}
             </h1>)}
-            {posts.data && (<div className="">
+            {postArr && (<div className="">
             {isLoading ? (<div className='w-full flex items-center justify-center mt-16'>
                 <Spinner />
             </div>)
