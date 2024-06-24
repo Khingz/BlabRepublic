@@ -120,6 +120,7 @@ class BaseController {
           }
           const data = await this.model.findByIdAndUpdate(id, req.body, { new: true });
           await deleteKeysByPrefix(`single:${this.model.modelName}`)
+          await deleteKeysByPrefix(`${this.model.modelName}`)
           res.status(200).json({message: `${this.model.modelName} updated successfully`, data});
         } catch (error) {
           next(error);
