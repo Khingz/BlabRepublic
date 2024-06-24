@@ -1,6 +1,6 @@
 const redis = require('redis');
 
-// Use the Redis URL
+// Use the Redis URLs
 const REDIS_URL = process.env.REDIS_URL || 'redis://127.0.0.1:6379';
 
 // Create a Redis client
