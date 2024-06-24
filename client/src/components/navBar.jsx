@@ -22,9 +22,9 @@ export const NavBar = () => {
     }
 
   return (
-    <div className='fixed top-0 w-full z-20 border-b border-gray-700'>
+    <div className='w-full z-20 border-b border-gray-700'>
         {/* Top nav */}
-        <div className='hidden z-[1] w-full h-10 bg-gray-700 text-white md:flex items-center px-6'>
+        <div className='fixed top-0 hidden z-[1] w-full h-10 bg-gray-700 text-white md:flex items-center px-6'>
             {
                 !isLoading && isLoggedIn ? (
                     <div className='flex items-center justify-between w-screen p-4'>
@@ -59,7 +59,7 @@ export const NavBar = () => {
 
         {/* Bottom nav */}
         <div className='bg-white'>
-            <div className='flex justify-between w-full p-5'>
+            <div className='flex justify-between w-full md:mt-10 px-6 py-4'>
                 {
                     isNavMenu ? (
                         <NavLinksLg/>

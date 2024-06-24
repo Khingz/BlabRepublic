@@ -14,7 +14,7 @@ class BaseController {
         try {
           let query = {};
           let page = parseInt(req.query.page) || 1; //current page
-          let limit = parseInt(req.query.limit) || 20; // number of item per page
+          let limit = parseInt(req.query.limit) || 15; // number of item per page
           let skip = (page - 1) * limit; // number of items to skip for current page
           const cacheKey = `${this.model.modelName}:${JSON.stringify(req.query)}`
           const cacheData = await handleCaching(cacheKey, async () => {
