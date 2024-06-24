@@ -8,6 +8,10 @@ const BlockedTokensModel = require('../models/blockedTokens.model');
 const { deleteFile } = require('../utils/deleteFile');
 const { cloudinaryUploadImage } = require('../utils/cloudinary');
 jwt = require('jsonwebtoken');
+const path = require('path');
+
+
+const defaultImagePath = path.join(__dirname, '../utils/images/default-img.jpg');
 
 
 class UserController extends BaseController {
@@ -52,6 +56,9 @@ class UserController extends BaseController {
         const imgData = await cloudinaryUploadImage(req.file.path)
         new_user_data.img = imgData.secure_url;
         await deleteFile(req.file.path)
+      } else {
+        const imgData = await cloudinaryUploadImage(defaultImagePath)
+        new_user_data.img = imgData.secure_url;
       }
       const new_user = await this.model.create(new_user_data);
       const user_data = formatUser(new_user)
