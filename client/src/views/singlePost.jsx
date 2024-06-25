@@ -65,7 +65,7 @@ const SinglePost = () => {
     }
 
     return (       
-        <div className='md:mt-4 px-4'>
+        <div className='mt-24 md:mt-4 px-4'>
             {isConfirmOpen && <Confirm handleDelete={() => handleDelete(post._id)} title={'Are you sure you want to delete post?'}/>}
             {isLoading ? (<div className='pt-8'>
                 <Spinner />
