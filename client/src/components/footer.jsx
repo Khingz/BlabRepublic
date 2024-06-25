@@ -1,10 +1,11 @@
 import React from 'react'
 
 const Footer = () => {
+  const year = new Date().getFullYear();
   return (
     <div className='mt-16'>
-      <div className='h-12 w-full text-white text-lg md:text-xl flex items-center justify-center border-t border-white bg-gray-800'>
-        <p className='font-light'>All rights reserved &#169;2024 - BlabReublic</p>
+      <div className='fixed bottom-0 md:h-10 w-full text-white text-sm md:text-lg flex items-center justify-center border-t border-white bg-gray-800'>
+        <p className='font-light'>{`All rights reserved ©${year} - BlabReublic`}</p>
       </div>
     </div>
   )

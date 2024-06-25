@@ -65,16 +65,16 @@ const SinglePost = () => {
     }
 
     return (       
-        <div className='mt-16 md:mt-32'>
+        <div className='md:mt-4 px-4'>
             {isConfirmOpen && <Confirm handleDelete={() => handleDelete(post._id)} title={'Are you sure you want to delete post?'}/>}
             {isLoading ? (<div className='pt-8'>
                 <Spinner />
             </div>) : post && (
                 <div>
-                    <div className='px-4 my-10 pt-10'>
+                    <div className='md:mb-2'>
                         <p className='text-3xl font-semibold md:text-6xl capitalize'>{post.title}</p>
                     </div>
-                    <div className='px-4 flex justify-start items-center gap-2 md:gap-4 -mt-10 md:text-2xl md:-mt-6 mb-8'>
+                    <div className='flex justify-start items-center gap-2 md:gap-4 md:text-2xl mb-4'>
                         {isLoggedIn && postAuthor && (
                             <>
                             {user._id === post.author ? (

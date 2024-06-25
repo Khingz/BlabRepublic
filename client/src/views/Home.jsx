@@ -47,7 +47,7 @@ const Home = () => {
           <Spinner />
         </div>)
          : (
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-20 mb-10 px-10'>
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-20 mb-10 px-4 md:px-10'>
             {!posts && <Spinner />}
             {
               postArr.map((card) => (

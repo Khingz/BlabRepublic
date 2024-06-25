@@ -10,8 +10,6 @@ const path = require('path');
 // Path to default image
 const defaultImagePath = path.join(__dirname, '../utils/images/default-post.jpg');
 
-console.log(defaultImagePath);
-
 class PostController extends BaseController {
     constructor() {
       super(Post);
