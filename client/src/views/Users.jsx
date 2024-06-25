@@ -36,7 +36,6 @@ const Users = () => {
 
   const handlePageChange = async (pageNumber) => {
     try {
-      console.log(pageNumber);
       await getUsers({page: pageNumber})
     } catch (err) {
       console.log(err);
@@ -56,7 +55,7 @@ const Users = () => {
   }
 
   return (
-    <div className='my-4 px-4'>
+    <div className='mt-28 md:my-6 px-4'>
       <h2 className='md:text-6xl text-4xl font-light'>{`Users`}</h2>
 
       {/* Search Section  */}

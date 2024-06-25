@@ -35,7 +35,7 @@ const Home = () => {
   }
 
   return (
-    <div className='w-full'>
+    <div className='w-full mt-20 md:mt-0'>
       <HeroSection />
       <Search />
       {/* Upper card section */}

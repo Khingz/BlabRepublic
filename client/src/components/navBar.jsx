@@ -22,7 +22,7 @@ export const NavBar = () => {
     }
 
   return (
-    <div className='w-full z-20 border-b border-gray-700'>
+    <div className={`${!isNavMenu ? 'fixed top-0' : ''} w-full z-20 border-b border-gray-700`}>
         {/* Top nav */}
         <div className='fixed top-0 hidden z-[1] w-full h-10 bg-gray-700 text-white md:flex items-center px-6'>
             {

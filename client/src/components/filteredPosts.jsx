@@ -26,7 +26,7 @@ const FilteredPosts = () => {
     }, [queryParamObj])
 
     return (
-        <div className='my-4'>
+        <div className='mt-28 md:mt-6 my-4'>
             <div className='md:ml-8 ml-2'>
                 <h3 className='text-2xl md:text-3xl font-light'>{queryParamObj && queryParamObj.search ? `Search Result for: ${queryParamObj.search}` : `Category: ${queryParamObj.category}`}</h3>
             </div>
