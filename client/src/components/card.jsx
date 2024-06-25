@@ -21,7 +21,7 @@ const Card = ({ image, title, content, category, date, id }) => {
       <div>
         <p className="text-gray-700 text-base mx-3">{`${content.slice(0, 300)}...`}</p>
       </div>
-      <div className='mt-4 mb-6 mx-2'>
+      <div className='mt-4 mb-4 mx-2'>
         <Link to={`/posts/${id}`} className='bg-none border border-black text-black hover:bg-black hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white text-center rounded-sm px-3 py-2'>Read more</Link>
       </div>
     </div>
