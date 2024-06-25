@@ -2,12 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/userContext';
 import { toast } from 'react-toastify';
-import Spinner from '../components/spinner';
 import SpinnerSmall from '../components/spinnerSmall';
 
 const Login = () => {
   const navigate = useNavigate();
-  const { login, error, setError, user  } = useAuth();
+  const { login, setError, user  } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -34,6 +33,7 @@ const Login = () => {
     if (user) {
       navigate('/')
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

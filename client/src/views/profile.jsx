@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom';
 import { useAuth } from '../context/userContext';
 import { useConfirm } from '../context/confirmContext';
 import ImageViewer from '../components/imageViewer';
@@ -35,6 +35,7 @@ const CurrentUserProfile = () => {
 
   useEffect(() => {
     user && getPosts({author: user._id})
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   
