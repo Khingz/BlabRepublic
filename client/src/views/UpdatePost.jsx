@@ -59,11 +59,11 @@ const UpdatePost = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-700 pt-16 pb-8">
+    <div className="min-h-screen flex items-center justify-center bg-gray-700">
       { isLoading ? (<div className='pt-8'>
                 <Spinner />
             </div>) : (
-      <div className="bg-lightPurple rounded-lg shadow-md px-8 py-12 w-full md:w-1/2 mt-24">
+      <div className="bg-lightPurple rounded-lg shadow-md px-8 py-12 w-full md:w-1/2">
         <h2 className="text-3xl font-bold text-center text-gray-700 mb-6">Update Post</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">

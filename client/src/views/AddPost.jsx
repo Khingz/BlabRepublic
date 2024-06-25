@@ -2,12 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { usePost } from '../context/postContext';
-import Spinner from '../components/spinner';
 import SpinnerSmall from '../components/spinnerSmall';
 
 const AddPost = () => {
   const navigate = useNavigate();
-  const { addPost, isLoading } = usePost();
+  const { addPost } = usePost();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -48,7 +47,7 @@ const AddPost = () => {
   }, [])
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-700 pt-16 pb-8 px-2">
+    <div className="min-h-screen flex items-center justify-center bg-gray-700 px-2">
       <div className="bg-gray-100 rounded-lg shadow-md px-8 py-12 w-full md:w-1/2 mt-24">
         <h2 className="text-3xl font-bold text-center text-gray-700 mb-6">Add Post</h2>
         <form onSubmit={handleSubmit}>

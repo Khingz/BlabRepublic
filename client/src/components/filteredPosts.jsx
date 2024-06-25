@@ -26,9 +26,9 @@ const FilteredPosts = () => {
     }, [queryParamObj])
 
     return (
-        <div className='mt-16 md:mt-32'>
-            <div className='pt-12 md:ml-8 ml-2'>
-                <h3 className='text-3xl font-light'>{queryParamObj && queryParamObj.search ? `Search Result for: ${queryParamObj.search}` : `Category: ${queryParamObj.category}`}</h3>
+        <div className='my-4'>
+            <div className='md:ml-8 ml-2'>
+                <h3 className='text-2xl md:text-3xl font-light'>{queryParamObj && queryParamObj.search ? `Search Result for: ${queryParamObj.search}` : `Category: ${queryParamObj.category}`}</h3>
             </div>
             <div className='border-t border-gray-200 w-full mt-6'></div>
             {!isLoading && postArr < 1 && (<h1 className='w-full mt-32 text-4xl font-light text-center'>

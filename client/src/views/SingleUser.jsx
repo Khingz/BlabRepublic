@@ -51,7 +51,7 @@ const SingleUser = () => {
   }, [])
 
   return (
-    <div className='mt-44 w-full'>
+    <div className='mt-12 md:mt-20 w-full'>
       <div>
         {user && (
           <div className='w-5/6 md:w-1/2 mx-auto rounded overflow-hidden shadow-md py-12'>
